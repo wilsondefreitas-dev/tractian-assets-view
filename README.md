@@ -2,8 +2,6 @@
 
 An Tree View Application that shows companies Assets (The tree is basically composed with components, assets and locations).
 
----
-
 # Run it
 
 1. `npm i`
