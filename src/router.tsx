@@ -1,23 +1,24 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import Layouts from "./layouts";
 import Apex from "./routes/apex";
+import MainLayout from "./layouts/MainLayout";
 
 //
 
 const router = createBrowserRouter([
   {
-    path: "/apex",
-    element: <Layouts.Main />,
+    id: "main",
+    element: <MainLayout.Component />,
+    loader: MainLayout.loader,
     children: [
       {
         index: true,
-        path: `/apex`,
+        path: `/assets/:companyName`,
         // loader: Home.loader,
         element: <Apex.Component />,
       },
     ],
   },
-  { path: "*", loader: () => redirect("/apex") },
+  { path: "*", loader: () => redirect("/assets/apex") },
 ]);
 
 export default router;

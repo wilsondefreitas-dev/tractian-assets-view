@@ -1,0 +1,38 @@
+import "./styles.scss";
+import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
+import ApiHandler from "src/services/ApiHandler";
+import { MainLayoutLoaderData } from "src/types/mainLayout";
+
+//
+
+async function loader(): Promise<MainLayoutLoaderData> {
+  const apiHandler = new ApiHandler();
+  const companies = apiHandler.getCompanies();
+
+  return {
+    promises: { companies },
+  };
+}
+
+//
+
+const Component = () => {
+  return (
+    <div className="mainLayout">
+      <Header />
+      <div className="mainLayout__container">
+        <div className="mainLayout__box">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default {
+  Component,
+  loader,
+};
+
+//
