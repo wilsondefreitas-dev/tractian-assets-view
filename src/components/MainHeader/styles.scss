@@ -1,0 +1,29 @@
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: #17192d;
+  padding: 16px;
+
+  &__options {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__option {
+    display: flex;
+    gap: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    background-color: #023b78;
+    cursor: pointer;
+    border: 0;
+
+    &.activated {
+      background-color: #2188ff;
+      cursor: default;
+    }
+  }
+}

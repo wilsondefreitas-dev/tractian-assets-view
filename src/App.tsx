@@ -1,5 +1,14 @@
+import MainHeader from "src/components/MainHeader";
+
+//
+
 function App() {
-  return <h1>New app</h1>;
+  return (
+    <>
+      <MainHeader />
+      <div className="mainContent"></div>
+    </>
+  );
 }
 
 export default App;
