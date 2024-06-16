@@ -1,4 +1,4 @@
-import treeIcon from "src/assets/tree.svg";
+import treeIcon from "src/globals/assets/tree.svg";
 import classNames from "classnames";
 
 //

@@ -1,13 +1,19 @@
-import "./styles.scss";
-import logo from "src/assets/logo.svg";
+import logo from "src/globals/assets/logo.svg";
 import Option from "./components/Option";
+import { useNavigate } from "react-router-dom";
 
 //
 
 const MainHeader = () => {
+  const navigate = useNavigate();
+
+  //
+
   return (
     <div className="mainHeader">
-      <img src={logo} alt="Tractiain logo" />
+      <div className="mainHeader__logo" onClick={() => navigate("/")}>
+        <img src={logo} alt="Tractiain logo" />
+      </div>
 
       <div className="mainHeader__options">
         <Option label={"Apex Unit"} activated />
