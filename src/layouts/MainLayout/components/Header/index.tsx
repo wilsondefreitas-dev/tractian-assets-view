@@ -24,7 +24,7 @@ const MainHeader = () => {
           {(companies) => {
             return (
               <div className="mainHeader__options">
-                {companies?.reverse()?.map((company: ICompanies) => (
+                {companies?.map((company: ICompanies) => (
                   <Option key={company?.id} company={company} />
                 ))}
               </div>
