@@ -1,3 +1,4 @@
+import "./styles.scss";
 import { Params, useLoaderData } from "react-router-dom";
 import { ICompany } from "src/interfaces/apiData";
 import apiHandler from "src/services/ApiHandler";
@@ -9,7 +10,9 @@ import storageIcon from "src/globals/assets/storage.svg";
 import eDotIcon from "src/globals/assets/eDot.svg";
 import radioIcon from "src/globals/assets/radio.svg";
 import sensorIcon from "src/globals/assets/sensor.svg";
-import "./styles.scss";
+import { useEffect, useRef, useState } from "react";
+import { ITree } from "src/interfaces/tree";
+import DataTree from "./components/DataTree";
 
 //
 
@@ -33,9 +36,36 @@ const Component = () => {
     locations: [];
     assets: [];
   };
+  const treeWorker = useRef<Worker | null>(null);
+  const [data, setData] = useState<ITree | null>(null);
 
-  console.log({ locations });
-  console.log({ assets });
+  //
+
+  useEffect(() => {
+    setTreeData([...locations, ...assets]);
+  }, [locations, assets]);
+
+  //
+
+  function setTreeData(rawData: []) {
+    setData(null);
+
+    if (treeWorker.current?.terminate) {
+      treeWorker.current?.terminate();
+    }
+
+    treeWorker.current = new Worker(
+      new URL("src/workers/treeGenerator.ts", import.meta.url)
+    );
+
+    treeWorker.current.onmessage = (e) => {
+      setData(e?.data);
+    };
+
+    treeWorker.current.postMessage(rawData);
+  }
+
+  //
 
   return (
     <div className="assetsPage">
@@ -54,13 +84,20 @@ const Component = () => {
           </button>
         </div>
       </div>
+
       <div className="assetsPage__container">
         <div className="assetsList">
           <div className="assetsList__searchBar">
             <input placeholder="Buscar Ativo ou Local" />
             <img src={glassIcon} />
           </div>
-          <div className="assetsList__tree"></div>
+          <div className="assetsList__tree">
+            {!data?.root ? (
+              "carregando..."
+            ) : (
+              <DataTree data={data?.root?.childrens} />
+            )}
+          </div>
         </div>
 
         <div className="assetsDetails">

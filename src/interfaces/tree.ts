@@ -1,0 +1,14 @@
+export interface ITree {
+  root: ITreeNode;
+}
+
+export interface ITreeNode {
+  id?: string;
+  name?: string;
+  parentId?: string;
+  locationId?: string;
+  parentFound?: boolean;
+  sensorType?: string;
+  status?: string;
+  childrens: ITreeNode[];
+}

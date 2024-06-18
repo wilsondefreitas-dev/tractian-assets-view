@@ -2,7 +2,7 @@ import logo from "src/globals/assets/logo.svg";
 import Option from "./components/Option";
 import { Await, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-import { MainLayoutLoaderData } from "src/types/mainLayout";
+import { MainLayoutLoaderData } from "src/interfaces/mainLayout";
 import { ICompany } from "src/interfaces/apiData";
 
 //

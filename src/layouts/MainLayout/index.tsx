@@ -2,7 +2,7 @@ import "./styles.scss";
 import Header from "./components/Header";
 import { Outlet } from "react-router-dom";
 import apiHandler from "src/services/ApiHandler";
-import { MainLayoutLoaderData } from "src/types/mainLayout";
+import { MainLayoutLoaderData } from "src/interfaces/mainLayout";
 
 //
 
