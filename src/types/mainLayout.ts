@@ -1,9 +1,9 @@
-import { ICompanies } from "src/interfaces/apiData";
+import { ICompany } from "src/interfaces/apiData";
 
 //
 
 export type MainLayoutLoaderData = {
   promises: {
-    companies: Promise<ICompanies | null>;
+    companies: Promise<ICompany | null>;
   };
 };

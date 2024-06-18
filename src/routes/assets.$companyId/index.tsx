@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Params, useLoaderData } from "react-router-dom";
 import { ICompany } from "src/interfaces/apiData";
 import apiHandler from "src/services/ApiHandler";
 import thunderIcon from "src/globals/assets/thunder.svg";
@@ -13,7 +13,7 @@ import "./styles.scss";
 
 //
 
-async function loader({ params }: { params: { companyId: string } }) {
+async function loader({ params }: { params: Params }) {
   const { companyId } = params;
 
   const [company, locations, assets] = await Promise.all([
