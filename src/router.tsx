@@ -18,6 +18,7 @@ const router = createBrowserRouter([
       },
       {
         index: true,
+        id: "assets",
         path: `/assets/:companyId`,
         element: <Assets.$companyId.Component />,
         loader: Assets.$companyId.loader,

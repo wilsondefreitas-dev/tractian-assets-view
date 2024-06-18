@@ -3,16 +3,16 @@ import { Params, useLoaderData } from "react-router-dom";
 import { ICompany } from "src/interfaces/apiData";
 import apiHandler from "src/services/ApiHandler";
 import thunderIcon from "src/globals/assets/thunder.svg";
-import glassIcon from "src/globals/assets/glass.svg";
 import greenDotIcon from "src/globals/assets/greenDot.svg";
 import roundExclamationIcon from "src/globals/assets/roundExclamation.svg";
 import storageIcon from "src/globals/assets/storage.svg";
 import eDotIcon from "src/globals/assets/eDot.svg";
 import radioIcon from "src/globals/assets/radio.svg";
 import sensorIcon from "src/globals/assets/sensor.svg";
-import { useEffect, useRef, useState } from "react";
-import { ITree } from "src/interfaces/tree";
-import DataTree from "./components/DataTree";
+import AssetsList from "./components/AssetsList";
+import { useState } from "react";
+import classNames from "classnames";
+import { IStringsObject } from "src/interfaces/commom";
 
 //
 
@@ -31,38 +31,23 @@ async function loader({ params }: { params: Params }) {
 //
 
 const Component = () => {
-  const { company, locations, assets } = useLoaderData() as {
-    company: ICompany;
-    locations: [];
-    assets: [];
-  };
-  const treeWorker = useRef<Worker | null>(null);
-  const [data, setData] = useState<ITree | null>(null);
+  const { company } = useLoaderData() as { company: ICompany };
+  const [filters, setFilter] = useState<IStringsObject[]>([]);
 
   //
 
-  useEffect(() => {
-    setTreeData([...locations, ...assets]);
-  }, [locations, assets]);
+  function handleFilterOnClick(newFilter: IStringsObject) {
+    const filterActivated = filters.some((d) => d.value === newFilter?.value);
 
-  //
+    if (filterActivated) {
+      const filteredFilters = filters.filter(
+        (d) => d.value !== newFilter?.value
+      );
 
-  function setTreeData(rawData: []) {
-    setData(null);
-
-    if (treeWorker.current?.terminate) {
-      treeWorker.current?.terminate();
+      setFilter(filteredFilters);
+    } else {
+      setFilter([...filters, newFilter]);
     }
-
-    treeWorker.current = new Worker(
-      new URL("src/workers/treeGenerator.ts", import.meta.url)
-    );
-
-    treeWorker.current.onmessage = (e) => {
-      setData(e?.data);
-    };
-
-    treeWorker.current.postMessage(rawData);
   }
 
   //
@@ -74,11 +59,25 @@ const Component = () => {
           <b>Ativos</b> / {company?.name}
         </div>
         <div className="assetsPage__filtersContainer">
-          <button className="assetsPage__filter">
+          <button
+            className={classNames("assetsPage__filter", {
+              activated: filters.some((d) => d?.value === "energy"),
+            })}
+            onClick={() =>
+              handleFilterOnClick({ type: "sensorType", value: "energy" })
+            }
+          >
             <img src={thunderIcon} />
             Sensor de Energia
           </button>
-          <button className="assetsPage__filter activated">
+          <button
+            className={classNames("assetsPage__filter", {
+              activated: filters.some((d) => d?.value === "alert"),
+            })}
+            onClick={() =>
+              handleFilterOnClick({ type: "status", value: "alert" })
+            }
+          >
             <img src={roundExclamationIcon} />
             Crítico
           </button>
@@ -86,19 +85,7 @@ const Component = () => {
       </div>
 
       <div className="assetsPage__container">
-        <div className="assetsList">
-          <div className="assetsList__searchBar">
-            <input placeholder="Buscar Ativo ou Local" />
-            <img src={glassIcon} />
-          </div>
-          <div className="assetsList__tree">
-            {!data?.root ? (
-              "carregando..."
-            ) : (
-              <DataTree data={data?.root?.childrens} />
-            )}
-          </div>
-        </div>
+        <AssetsList filters={filters} />
 
         <div className="assetsDetails">
           <div className="assetsDetails__header">
