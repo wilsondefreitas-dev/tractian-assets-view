@@ -1,7 +1,7 @@
-import { ICompanies } from "./apiData";
+import { ICompany } from "./apiData";
 
 //
 
 export interface IOptionsProps {
-  company: ICompanies;
+  company: ICompany;
 }

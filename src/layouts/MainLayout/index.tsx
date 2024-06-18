@@ -1,13 +1,12 @@
 import "./styles.scss";
 import Header from "./components/Header";
 import { Outlet } from "react-router-dom";
-import ApiHandler from "src/services/ApiHandler";
+import apiHandler from "src/services/ApiHandler";
 import { MainLayoutLoaderData } from "src/types/mainLayout";
 
 //
 
 async function loader(): Promise<MainLayoutLoaderData> {
-  const apiHandler = new ApiHandler();
   const companies = apiHandler.getCompanies();
 
   return {

@@ -3,7 +3,7 @@ import Option from "./components/Option";
 import { Await, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { Suspense } from "react";
 import { MainLayoutLoaderData } from "src/types/mainLayout";
-import { ICompanies } from "src/interfaces/apiData";
+import { ICompany } from "src/interfaces/apiData";
 
 //
 
@@ -24,7 +24,7 @@ const MainHeader = () => {
           {(companies) => {
             return (
               <div className="mainHeader__options">
-                {companies?.map((company: ICompanies) => (
+                {companies?.map((company: ICompany) => (
                   <Option key={company?.id} company={company} />
                 ))}
               </div>

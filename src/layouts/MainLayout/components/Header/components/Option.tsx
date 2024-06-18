@@ -14,18 +14,15 @@ const Option = ({ company }: IOptionsProps) => {
   //
 
   function handleOnClick() {
-    const lowerCaseName = company?.name.toLocaleLowerCase();
-
-    navigate(`/assets/${lowerCaseName}`);
+    navigate(`/assets/${company?.id}`);
   }
 
   function isActivated() {
     if (typeof window !== "object") return;
 
-    const lowerCaseName = company?.name.toLocaleLowerCase();
     const curPath = window.location.pathname?.split("/")[2];
 
-    return curPath === lowerCaseName;
+    return curPath === company?.id;
   }
 
   //
