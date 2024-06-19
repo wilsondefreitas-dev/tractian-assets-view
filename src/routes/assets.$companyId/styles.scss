@@ -127,6 +127,10 @@ $border: solid 1px #d8dfe6;
     span {
       white-space: nowrap;
     }
+
+    &:hover {
+      color: #2188ff;
+    }
   }
 
   &__arrow {
