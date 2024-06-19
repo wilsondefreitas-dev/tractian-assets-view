@@ -26,7 +26,9 @@ class Tree {
 
     const withParent = elements?.filter((d) => d?.parentId || d?.locationId);
 
+    console.time("testing");
     this.addNodes(this.root, withParent);
+    console.timeEnd("testing");
   }
 
   //
@@ -39,13 +41,14 @@ class Tree {
       const whereChild = where?.childrens[i];
 
       //filter to get only data with parent or location it
-      const childrens = elements.filter((child) => {
+      const childrens = elements.filter((child, index) => {
         if (
           child?.parentId === whereChild?.id ||
           child?.locationId === whereChild?.id
         ) {
           child.parentFound = true;
           child.childrens = [];
+          elements.splice(index, 1);
           return true;
         }
         return false;

@@ -23,7 +23,7 @@ const TreeNode = ({ data }: { data: ITreeNode }) => {
   //
 
   function handleOnClick() {
-    setOpened(!opened);
+    if (data?.childrens?.length > 0) setOpened(!opened);
   }
 
   function getTypeIcon() {
