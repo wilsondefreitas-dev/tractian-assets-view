@@ -66,10 +66,15 @@ $border: solid 1px #d8dfe6;
     display: flex;
     align-items: center;
     gap: 8px;
-    display: flex;
-    align-items: center;
     padding: 12px 16px;
     border-bottom: solid 1px #d8dfe6;
+    flex-wrap: wrap;
+
+    small {
+      margin-left: auto;
+      color: gray;
+      font-style: italic;
+    }
   }
 
   &__filter {

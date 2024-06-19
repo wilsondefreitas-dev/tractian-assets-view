@@ -34,7 +34,7 @@ export default router;
 
 function NoSelection() {
   return (
-    <div style={{ textAlign: "right" }}>
+    <div style={{ textAlign: "center" }}>
       <h3>Bem vindo ao Companies Assets Tree View</h3>
       <p>Selecione uma empresa no menu a cima</p>
     </div>

@@ -14,6 +14,7 @@ import debounce, { DebouncedFunction } from "debounce";
 
 const AssetsList = () => {
   const treeWorker = useRef<Worker | null>(null);
+  const dataLength = useRef<number | null>(null);
   const [data, setData] = useState<ITree | null>(null);
   const [filters, setFilter] = useState<IFilter[]>([]);
   const debounceRef = useRef<DebouncedFunction<() => void> | null>(null);
@@ -42,6 +43,8 @@ const AssetsList = () => {
       const dataFilter = new DataFilter(fullData, filters);
       fullData = dataFilter.filteredData;
     }
+
+    dataLength.current = fullData.length;
 
     setTreeData(fullData);
   }, [locations, assets, filters]);
@@ -130,6 +133,10 @@ const AssetsList = () => {
           <img src={roundExclamationIcon} />
           Crítico
         </button>
+
+        {data?.root && (
+          <small>{dataLength?.current?.toLocaleString("pt-BR")} items </small>
+        )}
       </div>
       <div className="assetsList__tree">
         {!data?.root && "Carregando..."}
