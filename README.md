@@ -18,14 +18,14 @@ An Tree View Application that shows companies Assets (The tree is basically comp
 - [Vite](https://vitejs.dev/)
 - [Sass](https://sass-lang.com/)
 
-# What I would improve?
+# What would I improve?
 
-- Would create, with the design team, a mobile version of the UI.
+- Would create a mobile version of the UI.
 - Would improve the search UX/UI.
-- Would talk with design team to understand some behavior that on Figma file was not so clear.
+- Would talk with design team to understand some behaviors that on Figma file are not so clear.
 - Would create more filters.
 - Would refactor some components and services.
 
-#Video
-- 
+# Video
+- [https://www.loom.com/share/a53cde1aad8c485c88a1ddc0198e2be6](https://www.loom.com/share/a53cde1aad8c485c88a1ddc0198e2be6)
 
