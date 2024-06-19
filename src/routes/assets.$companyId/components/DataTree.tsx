@@ -3,7 +3,7 @@ import TreeNode from "./TreeNode";
 
 //
 
-const DataTree = ({ data }: { data: ITreeNode[] }) => {
+const DataTree = ({ data }: { data: ITreeNode[] | undefined }) => {
   return (
     <>
       {data?.map((value) => {

@@ -2,17 +2,12 @@ import "./styles.scss";
 import { Params, useLoaderData } from "react-router-dom";
 import { ICompany } from "src/interfaces/apiData";
 import apiHandler from "src/services/ApiHandler";
-import thunderIcon from "src/globals/assets/thunder.svg";
 import greenDotIcon from "src/globals/assets/greenDot.svg";
-import roundExclamationIcon from "src/globals/assets/roundExclamation.svg";
 import storageIcon from "src/globals/assets/storage.svg";
 import eDotIcon from "src/globals/assets/eDot.svg";
 import radioIcon from "src/globals/assets/radio.svg";
 import sensorIcon from "src/globals/assets/sensor.svg";
 import AssetsList from "./components/AssetsList";
-import { useState } from "react";
-import classNames from "classnames";
-import { IStringsObject } from "src/interfaces/commom";
 
 //
 
@@ -32,23 +27,8 @@ async function loader({ params }: { params: Params }) {
 
 const Component = () => {
   const { company } = useLoaderData() as { company: ICompany };
-  const [filters, setFilter] = useState<IStringsObject[]>([]);
 
   //
-
-  function handleFilterOnClick(newFilter: IStringsObject) {
-    const filterActivated = filters.some((d) => d.value === newFilter?.value);
-
-    if (filterActivated) {
-      const filteredFilters = filters.filter(
-        (d) => d.value !== newFilter?.value
-      );
-
-      setFilter(filteredFilters);
-    } else {
-      setFilter([...filters, newFilter]);
-    }
-  }
 
   //
 
@@ -58,34 +38,10 @@ const Component = () => {
         <div className="assetsPage__title">
           <b>Ativos</b> / {company?.name}
         </div>
-        <div className="assetsPage__filtersContainer">
-          <button
-            className={classNames("assetsPage__filter", {
-              activated: filters.some((d) => d?.value === "energy"),
-            })}
-            onClick={() =>
-              handleFilterOnClick({ type: "sensorType", value: "energy" })
-            }
-          >
-            <img src={thunderIcon} />
-            Sensor de Energia
-          </button>
-          <button
-            className={classNames("assetsPage__filter", {
-              activated: filters.some((d) => d?.value === "alert"),
-            })}
-            onClick={() =>
-              handleFilterOnClick({ type: "status", value: "alert" })
-            }
-          >
-            <img src={roundExclamationIcon} />
-            Crítico
-          </button>
-        </div>
       </div>
 
       <div className="assetsPage__container">
-        <AssetsList filters={filters} />
+        <AssetsList />
 
         <div className="assetsDetails">
           <div className="assetsDetails__header">

@@ -11,4 +11,5 @@ export interface ITreeNode {
   sensorType?: string;
   status?: string;
   childrens: ITreeNode[];
+  [key: string]: string | boolean | ITreeNode[] | undefined;
 }

@@ -48,6 +48,8 @@ const TreeNode = ({ data }: { data: ITreeNode }) => {
 
   //
 
+  const hasStatus = data?.sensorType || data?.status;
+
   return (
     <div
       className="treeNode"
@@ -62,9 +64,7 @@ const TreeNode = ({ data }: { data: ITreeNode }) => {
 
         <span>{data?.name}</span>
 
-        {data?.sensorType && (
-          <img className={sensorIconClasses} src={sensorIcon} />
-        )}
+        {hasStatus && <img className={sensorIconClasses} src={sensorIcon} />}
       </div>
 
       {opened && (
