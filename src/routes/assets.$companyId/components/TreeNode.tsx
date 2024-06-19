@@ -8,6 +8,8 @@ import greenThunderIcon from "src/globals/assets/greenThunder.svg";
 import greenDotIcon from "src/globals/assets/greenDot.svg";
 import assetIcon from "src/globals/assets/asset.png";
 import DataTree from "./DataTree";
+import { useDispatch } from "react-redux";
+import { select } from "src/redux/assetViewSlice";
 
 //
 
@@ -15,15 +17,20 @@ const TreeNode = ({ data }: { data: ITreeNode }) => {
   const [opened, setOpened] = useState(false);
   const typeIcon = useMemo(getTypeIcon, [data]);
   const sensorIcon = useMemo(getSensorIcon, [data]);
+  const dispatch = useDispatch();
   const arrowClasses = classNames("treeNode__arrow", { opened });
-  const sensorIconClasses = classNames("treeNode__sensorIcon", {
+  const sensorIconClasses = classNames("sensorIcon", {
     operating: data?.status === "operating",
   });
 
   //
 
   function handleOnClick() {
-    if (data?.childrens?.length > 0) setOpened(!opened);
+    if (data?.childrens?.length > 0) {
+      setOpened(!opened);
+    } else {
+      dispatch(select(data));
+    }
   }
 
   function getTypeIcon() {

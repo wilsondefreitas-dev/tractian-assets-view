@@ -10,6 +10,8 @@ export interface ITreeNode {
   parentFound?: boolean;
   sensorType?: string;
   status?: string;
+  sensorId?: string;
+  gatewayId?: string;
   childrens: ITreeNode[];
   [key: string]: string | boolean | ITreeNode[] | undefined;
 }

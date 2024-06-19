@@ -145,14 +145,6 @@ $border: solid 1px #d8dfe6;
     border-left: solid 1px #eceef1;
     margin-left: 4px;
   }
-
-  &__sensorIcon {
-    filter: hue-rotate(260deg);
-
-    &.operating {
-      filter: none;
-    }
-  }
 }
 
 .assetsDetails {
@@ -248,5 +240,13 @@ $border: solid 1px #d8dfe6;
     div {
       width: 50% !important;
     }
+  }
+}
+
+.sensorIcon {
+  filter: hue-rotate(260deg);
+
+  &.operating {
+    filter: none;
   }
 }
