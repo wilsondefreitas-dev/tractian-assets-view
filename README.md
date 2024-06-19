@@ -22,7 +22,7 @@ An Tree View Application that shows companies Assets (The tree is basically comp
 
 - Would create a mobile version of the UI.
 - Would improve the search UX/UI.
-- Would talk with design team to understand some behaviors that on Figma file are not so clear.
+- Would talk with the design team to understand some behaviors that, on Figma file, are not so clear.
 - Would create more filters.
 - Would refactor some components and services.
 
