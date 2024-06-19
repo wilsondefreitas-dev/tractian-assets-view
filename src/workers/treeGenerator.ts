@@ -26,9 +26,7 @@ class Tree {
 
     const withParent = elements?.filter((d) => d?.parentId || d?.locationId);
 
-    console.time("testing");
     this.addNodes(this.root, withParent);
-    console.timeEnd("testing");
   }
 
   //
@@ -46,16 +44,14 @@ class Tree {
           child?.parentId === whereChild?.id ||
           child?.locationId === whereChild?.id
         ) {
-          child.parentFound = true;
-          child.childrens = [];
           childrens.push(child);
           elements.splice(w--, 1);
         }
       }
 
-      //add then as a children
+      //add them as childrens
       if (childrens.length > 0) {
-        whereChild.childrens.push(...childrens);
+        whereChild.childrens = childrens;
       }
     }
 
@@ -78,11 +74,10 @@ class Root {
 
   constructor(elements: ITreeNode[]) {
     //construct root only with items with no parent or location
-    const rootData = elements?.filter((d) => !d?.parentId && !d?.locationId);
-
-    for (let i = 0; i < rootData.length; i++) {
-      const element = rootData[i];
-      this.add(element);
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      element.childrens = [];
+      if (!element?.parentId && !element?.locationId) this.add(element);
     }
   }
 
