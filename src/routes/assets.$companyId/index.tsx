@@ -13,7 +13,6 @@ import AssetsList from "./components/AssetsList";
 
 async function loader({ params }: { params: Params }) {
   const { companyId } = params;
-
   const [company, locations, assets] = await Promise.all([
     apiHandler.getCompany(companyId),
     apiHandler.getCompanyLocations(companyId),

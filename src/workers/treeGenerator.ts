@@ -1,4 +1,4 @@
-import { ITreeNode } from "src/interfaces/tree";
+import { ITreeNode, ITreeRoot } from "src/interfaces/tree";
 
 //
 
@@ -31,7 +31,7 @@ class Tree {
 
   //
 
-  addNodes(where: ITreeNode, elements: ITreeNode[]) {
+  addNodes(where: ITreeRoot | ITreeNode, elements: ITreeNode[]) {
     let parentNotFound = [];
 
     //iterate the itens already on the tree

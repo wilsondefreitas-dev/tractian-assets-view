@@ -8,6 +8,7 @@ import classNames from "classnames";
 import thunderIcon from "src/globals/assets/thunder.svg";
 import roundExclamationIcon from "src/globals/assets/roundExclamation.svg";
 import { IFilter } from "src/interfaces/assetsList";
+import debounce, { DebouncedFunction } from "debounce";
 
 //
 
@@ -15,6 +16,7 @@ const AssetsList = () => {
   const treeWorker = useRef<Worker | null>(null);
   const [data, setData] = useState<ITree | null>(null);
   const [filters, setFilter] = useState<IFilter[]>([]);
+  const debounceRef = useRef<DebouncedFunction<() => void> | null>(null);
   const { locations, assets } = useRouteLoaderData("assets") as {
     locations: [];
     assets: [];
@@ -37,9 +39,7 @@ const AssetsList = () => {
     let fullData: ITreeNode[] = [...locations, ...assets];
 
     if (filters.length > 0) {
-      console.time("datafilter");
       const dataFilter = new DataFilter(fullData, filters);
-      console.timeEnd("datafilter");
       fullData = dataFilter.filteredData;
     }
 
@@ -80,12 +80,34 @@ const AssetsList = () => {
     }
   }
 
+  function handleSearchOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+
+    if (debounceRef.current) debounceRef.current.clear();
+
+    debounceRef.current = debounce(() => handleSearchOnClick(value), 1000);
+    debounceRef.current();
+  }
+
+  function handleSearchOnClick(query: string) {
+    let newFilter = filters.filter((f) => f?.type !== "name");
+
+    if (query.length > 0) {
+      newFilter = newFilter.concat([{ type: "name", value: query }]);
+    }
+
+    setFilter(newFilter);
+  }
+
   //
 
   return (
     <div className="assetsList">
       <div className="assetsList__searchBar">
-        <input placeholder="Buscar Ativo ou Local" />
+        <input
+          placeholder="Buscar Ativo ou Local"
+          onChange={handleSearchOnChange}
+        />
         <img src={glassIcon} />
       </div>
       <div className="assetsList__filtersContainer">

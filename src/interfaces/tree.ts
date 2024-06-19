@@ -13,3 +13,7 @@ export interface ITreeNode {
   childrens: ITreeNode[];
   [key: string]: string | boolean | ITreeNode[] | undefined;
 }
+
+export interface ITreeRoot {
+  childrens: ITreeNode[];
+}
