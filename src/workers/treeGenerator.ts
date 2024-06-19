@@ -34,25 +34,24 @@ class Tree {
   //
 
   addNodes(where: ITreeRoot | ITreeNode, elements: ITreeNode[]) {
-    let parentNotFound = [];
-
     //iterate the itens already on the tree
     for (let i = 0; i < where?.childrens?.length; i++) {
       const whereChild = where?.childrens[i];
+      const childrens = [];
 
-      //filter to get only data with parent or location it
-      const childrens = elements.filter((child, index) => {
+      for (let w = 0; w < elements?.length; w++) {
+        const child = elements[w];
+
         if (
           child?.parentId === whereChild?.id ||
           child?.locationId === whereChild?.id
         ) {
           child.parentFound = true;
           child.childrens = [];
-          elements.splice(index, 1);
-          return true;
+          childrens.push(child);
+          elements.splice(w--, 1);
         }
-        return false;
-      });
+      }
 
       //add then as a children
       if (childrens.length > 0) {
@@ -60,13 +59,11 @@ class Tree {
       }
     }
 
-    parentNotFound = elements?.filter((child) => !child.parentFound);
-
-    if (parentNotFound?.length > 0) {
+    if (elements?.length > 0) {
       //get itens that parent was not found and look again for them
       for (let i = 0; i < where?.childrens.length; i++) {
         const whereChild = where?.childrens[i];
-        this.addNodes(whereChild, parentNotFound);
+        this.addNodes(whereChild, elements);
       }
     }
   }
